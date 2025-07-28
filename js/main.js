@@ -28,7 +28,7 @@ const AEMGenerator = {
     isInitialized: false,
     
     // Debug mode for development
-    debug: false
+    debug: true
 };
 
 // ====================
@@ -207,11 +207,30 @@ function switchSection(sectionId) {
  * @param {string} sectionId - ID of the newly active section
  */
 function handleSectionSwitch(sectionId) {
+    log(`Handling section switch to: ${sectionId}`);
+    
     switch (sectionId) {
         case 'component-generator':
             // Initialize component generator if not already done
-            if (typeof initializeComponentGenerator === 'function') {
-                initializeComponentGenerator();
+            try {
+                if (typeof initializeComponentGenerator === 'function') {
+                    log('Initializing component generator...');
+                    initializeComponentGenerator();
+                } else if (typeof ComponentGenerator !== 'undefined' && ComponentGenerator.initialize) {
+                    log('Initializing ComponentGenerator directly...');
+                    ComponentGenerator.initialize();
+                } else {
+                    log('ComponentGenerator not available, will initialize when scripts load', 'warn');
+                    // Try again after a short delay in case scripts are still loading
+                    setTimeout(() => {
+                        if (typeof ComponentGenerator !== 'undefined') {
+                            ComponentGenerator.initialize();
+                        }
+                    }, 100);
+                }
+            } catch (error) {
+                log(`Error initializing component generator: ${error.message}`, 'error');
+                console.error('Component generator error:', error);
             }
             break;
             
@@ -426,9 +445,20 @@ function setupEventListeners() {
             e.preventDefault();
             const sectionId = link.dataset.section;
             
+            log(`Navigation clicked: ${sectionId}`);
+            
             // Don't switch if clicking on disabled items
             if (link.closest('.nav-item').classList.contains('disabled')) {
+                log(`Disabled section clicked: ${sectionId}`);
                 showToast('Coming Soon', 'This feature is not available yet', 'info');
+                return;
+            }
+            
+            // Validate section exists
+            const targetSection = document.getElementById(sectionId);
+            if (!targetSection) {
+                log(`Target section not found: ${sectionId}`, 'error');
+                showToast('Navigation Error', `Section ${sectionId} not found`, 'error');
                 return;
             }
             
@@ -497,18 +527,21 @@ function initializeApp() {
         // Mark as initialized
         AEMGenerator.isInitialized = true;
         
-        // Show welcome message
-        showToast(
-            'Welcome!', 
-            'AEM Component Generator is ready to use', 
-            'success',
-            3000
-        );
+        // Show welcome message after a brief delay to ensure UI is ready
+        setTimeout(() => {
+            showToast(
+                'Welcome!', 
+                'AEM Component Generator is ready to use', 
+                'success',
+                3000
+            );
+        }, 500);
         
         log('Application initialized successfully');
         
     } catch (error) {
         log(`Failed to initialize application: ${error.message}`, 'error');
+        console.error('Initialization error details:', error);
         
         // Show error to user
         if (elements.toastContainer) {

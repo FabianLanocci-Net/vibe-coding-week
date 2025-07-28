@@ -34,6 +34,15 @@ const ComponentGenerator = {
         AEMGenerator.log('Initializing Component Generator...');
         
         try {
+            // Check if required dependencies are loaded
+            if (typeof AEMTemplates === 'undefined') {
+                throw new Error('AEMTemplates not loaded');
+            }
+            
+            if (typeof UIComponents === 'undefined') {
+                throw new Error('UIComponents not loaded');
+            }
+            
             // Get UI containers
             this.ui.container = document.getElementById('generatorFormContent');
             this.ui.previewContainer = document.getElementById('codePreview');
@@ -41,6 +50,8 @@ const ComponentGenerator = {
             if (!this.ui.container) {
                 throw new Error('Generator container not found');
             }
+            
+            AEMGenerator.log('Dependencies loaded, containers found');
             
             // Show component selector
             this.showComponentSelector();
@@ -52,11 +63,20 @@ const ComponentGenerator = {
             
         } catch (error) {
             AEMGenerator.log(`Failed to initialize Component Generator: ${error.message}`, 'error');
+            console.error('Generator initialization error:', error);
+            
+            // Show error with more details
             AEMGenerator.showToast(
                 'Initialization Error',
-                'Failed to load the component generator',
+                `Failed to load the component generator: ${error.message}`,
                 'error'
             );
+            
+            // Try to initialize again after a delay
+            setTimeout(() => {
+                AEMGenerator.log('Retrying Component Generator initialization...');
+                this.initialize();
+            }, 1000);
         }
     },
     
@@ -66,25 +86,54 @@ const ComponentGenerator = {
     showComponentSelector: function() {
         AEMGenerator.log('Showing component selector');
         
-        this.currentState.step = 'selection';
-        this.currentState.componentType = null;
-        this.currentState.componentConfig = null;
-        
-        // Hide preview
-        if (this.ui.previewContainer) {
-            this.ui.previewContainer.style.display = 'none';
+        try {
+            this.currentState.step = 'selection';
+            this.currentState.componentType = null;
+            this.currentState.componentConfig = null;
+            
+            // Hide preview
+            if (this.ui.previewContainer) {
+                this.ui.previewContainer.style.display = 'none';
+            }
+            
+            // Verify AEMTemplates is available
+            if (!AEMTemplates || !AEMTemplates.componentTypes) {
+                throw new Error('AEMTemplates.componentTypes not available');
+            }
+            
+            AEMGenerator.log(`Found ${Object.keys(AEMTemplates.componentTypes).length} component types`);
+            
+            // Create and show component selector
+            const selector = UIComponents.createComponentSelector(
+                (typeKey, config) => this.onComponentTypeSelected(typeKey, config)
+            );
+            
+            this.ui.container.innerHTML = '';
+            this.ui.container.appendChild(selector);
+            
+            // Add CSS for component selector
+            this.addComponentSelectorStyles();
+            
+            AEMGenerator.log('Component selector displayed successfully');
+            
+        } catch (error) {
+            AEMGenerator.log(`Error showing component selector: ${error.message}`, 'error');
+            console.error('Component selector error:', error);
+            
+            // Show fallback UI
+            this.ui.container.innerHTML = `
+                <div class="error-state">
+                    <div class="error-state__icon">⚠️</div>
+                    <h3 class="error-state__title">Component Library Loading</h3>
+                    <p class="error-state__message">
+                        The component library is still loading. Please wait a moment or refresh the page.
+                    </p>
+                    <button onclick="ComponentGenerator.showComponentSelector()" class="btn btn-primary">
+                        Retry
+                    </button>
+                </div>
+            `;
         }
-        
-        // Create and show component selector
-        const selector = UIComponents.createComponentSelector(
-            (typeKey, config) => this.onComponentTypeSelected(typeKey, config)
-        );
-        
-        this.ui.container.innerHTML = '';
-        this.ui.container.appendChild(selector);
-        
-        // Add CSS for component selector
-        this.addComponentSelectorStyles();
     },
     
     /**
@@ -804,6 +853,32 @@ const ComponentGenerator = {
                 font-weight: 600;
                 color: var(--gray-900);
                 margin-bottom: 0.5rem;
+            }
+            
+            .error-state {
+                text-align: center;
+                padding: 3rem 1rem;
+                color: var(--gray-600);
+            }
+            
+            .error-state__icon {
+                font-size: 3rem;
+                margin-bottom: 1rem;
+                opacity: 0.7;
+            }
+            
+            .error-state__title {
+                font-size: 1.25rem;
+                font-weight: 600;
+                color: var(--gray-900);
+                margin-bottom: 0.5rem;
+            }
+            
+            .error-state__message {
+                margin-bottom: 1.5rem;
+                max-width: 28rem;
+                margin-left: auto;
+                margin-right: auto;
             }
             
             @media (max-width: 640px) {

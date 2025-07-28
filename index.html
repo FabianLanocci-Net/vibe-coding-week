@@ -303,9 +303,32 @@
     <div class="toast-container" id="toastContainer"></div>
     
     <!-- JavaScript -->
-    <script src="js/main.js"></script>
-    <script src="js/components.js"></script>
     <script src="js/templates.js"></script>
+    <script src="js/components.js"></script>
     <script src="js/generator.js"></script>
+    <script src="js/main.js"></script>
+    
+    <!-- Debug Script Loading -->
+    <script>
+        // Verify all modules are loaded
+        window.addEventListener('load', function() {
+            console.log('=== AEM Component Generator Debug Info ===');
+            console.log('AEMTemplates loaded:', typeof AEMTemplates !== 'undefined');
+            console.log('UIComponents loaded:', typeof UIComponents !== 'undefined');
+            console.log('ComponentGenerator loaded:', typeof ComponentGenerator !== 'undefined');
+            console.log('AEMGenerator loaded:', typeof AEMGenerator !== 'undefined');
+            
+            if (typeof AEMTemplates !== 'undefined' && AEMTemplates.componentTypes) {
+                console.log('Available component types:', Object.keys(AEMTemplates.componentTypes));
+            }
+            
+            // Enable debug mode
+            if (typeof AEMGenerator !== 'undefined') {
+                AEMGenerator.debug = true;
+            }
+            
+            console.log('=== End Debug Info ===');
+        });
+    </script>
 </body>
 </html> 
