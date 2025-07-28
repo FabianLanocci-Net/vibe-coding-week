@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AEM Component Generator</title>
+    <meta name="description" content="Generate professional AEM components with HTL templates, Sling models, and dialogs">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233B82F6'><path d='M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z'/></svg>">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles/main.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Main Application Container -->
+    <div class="app-container">
+        
+        <!-- Left Navigation Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <!-- Logo/Header Section -->
+            <div class="sidebar-header">
+                <div class="logo">
+                    <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" fill="currentColor"/>
+                    </svg>
+                    <span class="logo-text">AEM Generator</span>
+                </div>
+                
+                <!-- Mobile Menu Toggle -->
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            
+            <!-- Navigation Menu -->
+            <div class="sidebar-menu">
+                <ul class="nav-list">
+                    <!-- Component Generator - Main Feature -->
+                    <li class="nav-item active">
+                        <a href="#" class="nav-link" data-section="component-generator">
+                            <svg class="nav-icon" viewBox="0 0 24 24" fill="none">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke="currentColor" stroke-width="2" fill="none"/>
+                                <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="2" fill="none"/>
+                                <line x1="16" y1="13" x2="8" y2="13" stroke="currentColor" stroke-width="2"/>
+                                <line x1="16" y1="17" x2="8" y2="17" stroke="currentColor" stroke-width="2"/>
+                                <polyline points="10,9 9,9 8,9" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                            <span class="nav-text">Component Generator</span>
+                            <span class="nav-badge">New</span>
+                        </a>
+                    </li>
+                    
+                    <!-- Template Library -->
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-section="template-library">
+                            <svg class="nav-icon" viewBox="0 0 24 24" fill="none">
+                                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2v11z" stroke="currentColor" stroke-width="2" fill="none"/>
+                            </svg>
+                            <span class="nav-text">Template Library</span>
+                        </a>
+                    </li>
+                    
+                    <!-- Divider -->
+                    <li class="nav-divider"></li>
+                    
+                    <!-- Settings -->
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-section="settings">
+                            <svg class="nav-icon" viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" fill="none"/>
+                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1 1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" stroke="currentColor" stroke-width="2" fill="none"/>
+                            </svg>
+                            <span class="nav-text">Settings</span>
+                        </a>
+                    </li>
+                    
+                    <!-- Help & Documentation -->
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-section="help">
+                            <svg class="nav-icon" viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" stroke="currentColor" stroke-width="2" fill="none"/>
+                                <line x1="12" y1="17" x2="12.01" y2="17" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                            <span class="nav-text">Help & Guide</span>
+                        </a>
+                    </li>
+                    
+                    <!-- Future Features Section -->
+                    <li class="nav-divider"></li>
+                    <li class="nav-section-header">Future Features</li>
+                    
+                    <li class="nav-item disabled">
+                        <a href="#" class="nav-link" data-section="migration-assistant">
+                            <svg class="nav-icon" viewBox="0 0 24 24" fill="none">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor" stroke-width="2" fill="none"/>
+                                <polyline points="17,8 12,3 7,8" stroke="currentColor" stroke-width="2" fill="none"/>
+                                <line x1="12" y1="3" x2="12" y2="15" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                            <span class="nav-text">Migration Assistant</span>
+                            <span class="nav-badge-soon">Soon</span>
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item disabled">
+                        <a href="#" class="nav-link" data-section="performance-analyzer">
+                            <svg class="nav-icon" viewBox="0 0 24 24" fill="none">
+                                <polyline points="22,12 18,12 15,21 9,3 6,12 2,12" stroke="currentColor" stroke-width="2" fill="none"/>
+                            </svg>
+                            <span class="nav-text">Performance Analyzer</span>
+                            <span class="nav-badge-soon">Soon</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Sidebar Footer -->
+            <div class="sidebar-footer">
+                <div class="footer-info">
+                    <p class="footer-text">Built with ❤️ for AEM developers</p>
+                    <p class="footer-version">v1.0.0</p>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Mobile Overlay for sidebar -->
+            <div class="mobile-overlay" id="mobileOverlay"></div>
+            
+            <!-- Content Sections - Only one will be visible at a time -->
+            
+            <!-- Component Generator Section -->
+            <section class="content-section active" id="component-generator">
+                <div class="section-header">
+                    <h1 class="section-title">AEM Component Generator</h1>
+                    <p class="section-description">
+                        Generate professional AEM components with complete HTL templates, Sling models, dialog configurations, and styling. 
+                        Perfect for rapid development while maintaining AEM best practices.
+                    </p>
+                </div>
+                
+                <!-- Component Generator Form -->
+                <div class="generator-container">
+                    <div class="generator-form">
+                        <!-- Loading indicator for future use -->
+                        <div class="loading-indicator" id="loadingIndicator" style="display: none;">
+                            <div class="spinner"></div>
+                            <span>Generating your component...</span>
+                        </div>
+                        
+                        <!-- Form content will be added via JavaScript -->
+                        <div id="generatorFormContent">
+                            <!-- Initial placeholder -->
+                            <div class="form-placeholder">
+                                <div class="placeholder-icon">
+                                    <svg viewBox="0 0 24 24" fill="none">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke="currentColor" stroke-width="2" fill="none"/>
+                                        <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="2" fill="none"/>
+                                        <line x1="16" y1="13" x2="8" y2="13" stroke="currentColor" stroke-width="2"/>
+                                        <line x1="16" y1="17" x2="8" y2="17" stroke="currentColor" stroke-width="2"/>
+                                    </svg>
+                                </div>
+                                <h3>Select a Component Type</h3>
+                                <p>Choose from our library of AEM component templates to get started.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Generated Code Preview -->
+                    <div class="code-preview" id="codePreview" style="display: none;">
+                        <div class="preview-header">
+                            <h3>Generated Component</h3>
+                            <div class="preview-actions">
+                                <button class="btn btn-secondary" id="copyAllBtn">
+                                    <svg viewBox="0 0 24 24" fill="none">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2" stroke="currentColor" stroke-width="2" fill="none"/>
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke="currentColor" stroke-width="2" fill="none"/>
+                                    </svg>
+                                    Copy All
+                                </button>
+                                <button class="btn btn-primary" id="downloadBtn">
+                                    <svg viewBox="0 0 24 24" fill="none">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor" stroke-width="2" fill="none"/>
+                                        <polyline points="7,10 12,15 17,10" stroke="currentColor" stroke-width="2" fill="none"/>
+                                        <line x1="12" y1="15" x2="12" y2="3" stroke="currentColor" stroke-width="2"/>
+                                    </svg>
+                                    Download ZIP
+                                </button>
+                            </div>
+                        </div>
+                        <div class="preview-content" id="previewContent">
+                            <!-- Generated code will be displayed here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Template Library Section -->
+            <section class="content-section" id="template-library">
+                <div class="section-header">
+                    <h1 class="section-title">Template Library</h1>
+                    <p class="section-description">
+                        Explore our collection of pre-built AEM component templates. Each template follows AEM best practices and is ready for customization.
+                    </p>
+                </div>
+                <div class="coming-soon">
+                    <div class="coming-soon-icon">📚</div>
+                    <h3>Template Library Coming Soon</h3>
+                    <p>We're building an extensive library of AEM component templates.</p>
+                </div>
+            </section>
+            
+            <!-- Settings Section -->
+            <section class="content-section" id="settings">
+                <div class="section-header">
+                    <h1 class="section-title">Settings</h1>
+                    <p class="section-description">
+                        Customize the code generation preferences and configure your development environment.
+                    </p>
+                </div>
+                <div class="coming-soon">
+                    <div class="coming-soon-icon">⚙️</div>
+                    <h3>Settings Panel Coming Soon</h3>
+                    <p>Configure your preferences for code generation and project structure.</p>
+                </div>
+            </section>
+            
+            <!-- Help Section -->
+            <section class="content-section" id="help">
+                <div class="section-header">
+                    <h1 class="section-title">Help & Guide</h1>
+                    <p class="section-description">
+                        Learn how to use the AEM Component Generator and understand AEM development best practices.
+                    </p>
+                </div>
+                <div class="help-content">
+                    <div class="help-grid">
+                        <div class="help-card">
+                            <div class="help-card-icon">🚀</div>
+                            <h3>Getting Started</h3>
+                            <p>Learn the basics of using the component generator to create your first AEM component.</p>
+                            <a href="#" class="help-link">Read Guide →</a>
+                        </div>
+                        <div class="help-card">
+                            <div class="help-card-icon">📖</div>
+                            <h3>AEM Best Practices</h3>
+                            <p>Understand AEM development patterns and conventions used in generated components.</p>
+                            <a href="#" class="help-link">Learn More →</a>
+                        </div>
+                        <div class="help-card">
+                            <div class="help-card-icon">🔧</div>
+                            <h3>Customization Guide</h3>
+                            <p>Learn how to modify and extend the generated components for your specific needs.</p>
+                            <a href="#" class="help-link">View Examples →</a>
+                        </div>
+                        <div class="help-card">
+                            <div class="help-card-icon">💡</div>
+                            <h3>Tips & Tricks</h3>
+                            <p>Discover advanced techniques and shortcuts for efficient AEM component development.</p>
+                            <a href="#" class="help-link">Explore Tips →</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Placeholder sections for future features -->
+            <section class="content-section" id="migration-assistant">
+                <div class="section-header">
+                    <h1 class="section-title">Migration Assistant</h1>
+                    <p class="section-description">Automated tools to help migrate legacy components to modern AEM patterns.</p>
+                </div>
+                <div class="coming-soon">
+                    <div class="coming-soon-icon">🔄</div>
+                    <h3>Migration Assistant Coming Soon</h3>
+                    <p>Automate the migration of legacy components to modern AEM architecture.</p>
+                </div>
+            </section>
+            
+            <section class="content-section" id="performance-analyzer">
+                <div class="section-header">
+                    <h1 class="section-title">Performance Analyzer</h1>
+                    <p class="section-description">Analyze and optimize your AEM components for better performance.</p>
+                </div>
+                <div class="coming-soon">
+                    <div class="coming-soon-icon">⚡</div>
+                    <h3>Performance Analyzer Coming Soon</h3>
+                    <p>Get insights and recommendations to optimize your AEM components.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+    
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/templates.js"></script>
+    <script src="js/generator.js"></script>
+</body>
+</html> 
