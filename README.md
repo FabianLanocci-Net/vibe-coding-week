@@ -1,331 +1,176 @@
-# AEM Component Generator
+# Support Ticket System
 
-A powerful, AI-assisted tool for generating professional Adobe Experience Manager (AEM) components with complete HTL templates, Sling models, dialog configurations, and styling. Built for AEM developers to accelerate component development while maintaining best practices.
+A modern, responsive support ticket handling application built with React, TypeScript, and Tailwind CSS. Features a clean, minimalist design with dark/light theme support and localStorage-based data persistence.
 
-![AEM Component Generator](https://img.shields.io/badge/AEM-Component%20Generator-blue?style=for-the-badge&logo=adobe)
-![Version](https://img.shields.io/badge/version-1.0.0-green?style=for-the-badge)
-![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)
+## Features
 
-## ✨ Features
+- **Modern UI/UX**: Clean, minimalist design with rounded borders and subtle shadows
+- **Dark/Light Theme**: Toggle between themes with system preference detection
+- **Responsive Design**: Fully responsive layout that works on all devices
+- **Ticket Management**: Submit and view support tickets with severity levels
+- **Local Storage**: Data persistence using localStorage (easily replaceable with API)
+- **TypeScript**: Full type safety throughout the application
+- **Production Ready**: Optimized build with Netlify deployment configuration
 
-### 🚀 **Complete Component Generation**
-- **HTL Templates** - Semantic, accessible HTML template language files
-- **Java Sling Models** - Business logic with proper annotations and best practices
-- **Touch UI Dialogs** - Granite UI components for author-friendly interfaces
-- **SCSS Styling** - Component-specific styles with BEM methodology
-- **Documentation** - Auto-generated README files with usage examples
+## Tech Stack
 
-### 🎨 **Modern UI/UX**
-- **Responsive Design** - Mobile-first approach with beautiful blue/white theme
-- **Intuitive Interface** - Step-by-step component creation workflow
-- **Live Preview** - Real-time code preview with syntax highlighting
-- **Accessibility** - WCAG 2.1 compliant with keyboard navigation support
+- **React 18** - Modern React with hooks
+- **TypeScript** - Type safety and better developer experience
+- **Tailwind CSS** - Utility-first CSS framework
+- **Vite** - Fast build tool and development server
+- **ESLint** - Code linting and quality
 
-### 🛠️ **Professional Templates**
-- **6 Component Types** - Text, Image, Button, Container, Hero, and Card components
-- **AEM Best Practices** - Follows Adobe's recommended patterns and conventions
-- **Configurable Fields** - Flexible property configuration for each component type
-- **Code Quality** - Comprehensive commenting and documentation
+## Getting Started
 
-### 📱 **Developer Experience**
-- **Zero Dependencies** - Pure HTML, CSS, and JavaScript
-- **Netlify Ready** - Optimized for Netlify deployment
-- **Copy & Download** - Easy code extraction and file downloads
-- **Scalable Architecture** - Extensible for additional component types
+### Prerequisites
 
-## 🏗️ Project Structure
+- Node.js 18 or higher
+- npm or yarn
 
-```
-vibe-coding-week/
-├── index.html              # Main application entry point
-├── styles/
-│   └── main.css            # Comprehensive styling system
-├── js/
-│   ├── main.js             # Core application logic & navigation
-│   ├── templates.js        # AEM component templates library
-│   ├── components.js       # Reusable UI components
-│   └── generator.js        # Main generation orchestration
-├── README.md               # This documentation
-└── LICENSE                 # MIT License
+### Installation
+
+1. Clone the repository
+```bash
+git clone <repository-url>
+cd support-ticket-app
 ```
 
-## 🚀 Quick Start
+2. Install dependencies
+```bash
+npm install
+```
 
-### Instant Deployment
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/your-username/aem-component-generator)
+3. Start the development server
+```bash
+npm run dev
+```
 
-### Local Development
+4. Open your browser and navigate to `http://localhost:5173`
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/your-username/aem-component-generator.git
-   cd aem-component-generator
-   ```
+### Build for Production
 
-2. **Serve locally**
-   ```bash
-   # Using Python 3
-   python -m http.server 8000
-   
-   # Using Node.js
-   npx serve .
-   
-   # Using PHP
-   php -S localhost:8000
-   ```
+```bash
+npm run build
+```
 
-3. **Open in browser**
-   ```
-   http://localhost:8000
-   ```
+The built files will be in the `dist` directory, ready for deployment.
 
-## 📖 Usage Guide
+## Project Structure
 
-### 1. **Select Component Type**
-Choose from our curated selection of AEM component types:
+```
+src/
+├── components/          # React components
+│   ├── Sidebar.tsx     # Navigation sidebar
+│   ├── SubmitTicket.tsx # Ticket submission form
+│   ├── TicketList.tsx  # Ticket listing and filtering
+│   ├── TicketCard.tsx  # Individual ticket display
+│   └── ThemeToggle.tsx # Dark/light theme toggle
+├── contexts/           # React contexts
+│   └── ThemeContext.tsx # Theme management
+├── types/              # TypeScript type definitions
+│   └── ticket.ts       # Ticket-related types
+├── utils/              # Utility functions
+│   └── ticketStorage.ts # localStorage operations
+├── App.tsx             # Main application component
+├── main.tsx            # Application entry point
+└── index.css           # Global styles and Tailwind imports
+```
 
-- **📝 Text Component** - Rich text with formatting options
-- **🖼️ Image Component** - Responsive images with captions
-- **🔘 Button Component** - Interactive buttons with styling variants
-- **📦 Container Component** - Layout containers for organizing content
-- **🦸 Hero Component** - Eye-catching hero sections with overlays
-- **🃏 Card Component** - Versatile content cards
+## Features in Detail
 
-### 2. **Configure Properties**
-Fill out the intuitive form with:
-- **Component Information** - Name, package, and project details
-- **Property Fields** - Configure authoring fields for content editors
-- **Generation Options** - Choose which files to generate
+### Ticket Submission
+- Clean form with title, description, and severity fields
+- Form validation and error handling
+- Success/error feedback
+- Automatic redirect to ticket list after submission
 
-### 3. **Generate & Download**
-- **Preview** - View generated code with syntax highlighting
-- **Copy** - Copy individual files or all code to clipboard
-- **Download** - Download complete component as archive
+### Ticket Management
+- View all submitted tickets
+- Filter by severity (Low, Medium, High)
+- Filter by status (Open, In Progress, Resolved, Closed)
+- Search functionality across title, description, and ID
+- Statistics dashboard showing ticket counts by status
 
-## 🎯 Component Types
+### Theme System
+- Automatic system theme detection
+- Manual theme toggle
+- Persistent theme preference in localStorage
+- Smooth transitions between themes
 
-### Text Component
-Perfect for content-heavy sections with rich formatting capabilities.
+### Responsive Design
+- Mobile-first approach
+- Adaptive layouts for different screen sizes
+- Touch-friendly interface elements
 
-**Generated Files:**
-- `text-component.html` - HTL template with rich text support
-- `TextComponentModel.java` - Sling model with text processing
-- `_cq_dialog/.content.xml` - RTE-enabled dialog
-- `text-component.scss` - Typography and alignment styles
+## Deployment
 
-**Properties:**
-- Title (optional)
-- Rich Text Content (required)
-- Text Alignment (left/center/right)
+### Netlify
 
-### Image Component
-Responsive image handling with modern best practices.
+The project includes a `netlify.toml` configuration file for easy deployment to Netlify:
 
-**Generated Files:**
-- `image-component.html` - Responsive image markup
-- `ImageComponentModel.java` - Image processing logic
-- `_cq_dialog/.content.xml` - Asset browser integration
-- `image-component.scss` - Responsive image styles
+1. Connect your repository to Netlify
+2. The build settings are automatically configured
+3. Deploy with `npm run build`
 
-**Properties:**
-- Image Asset (required)
-- Alt Text (required)
-- Caption (optional)
-- Link URL (optional)
+### Other Platforms
 
-### Button Component
-Flexible button component with multiple style variants.
+For other platforms, build the project and deploy the `dist` directory:
 
-**Generated Files:**
-- `button-component.html` - Accessible button markup
-- `ButtonComponentModel.java` - Link validation logic
-- `_cq_dialog/.content.xml` - Button configuration
-- `button-component.scss` - Button style variants
+```bash
+npm run build
+# Deploy the 'dist' directory to your hosting platform
+```
 
-**Properties:**
-- Button Text (required)
-- URL (optional)
-- Style (primary/secondary/outline)
-- Size (small/medium/large)
+## Data Structure
 
-## 🛠️ Technical Architecture
+Tickets are stored with the following structure:
 
-### Core Technologies
-- **HTML5** - Semantic markup with modern standards
-- **CSS3** - CSS Custom Properties and modern layout
-- **JavaScript ES6+** - Modern JavaScript with modules
-- **Web APIs** - Clipboard, History, and File APIs
-
-### Code Generation Pipeline
-1. **Template Selection** - User chooses component type
-2. **Form Configuration** - Dynamic form based on component fields
-3. **Code Generation** - Template interpolation with user data
-4. **Validation** - Real-time form validation and error handling
-5. **Output Processing** - Syntax highlighting and download preparation
-
-### AEM Integration
-Generated components follow Adobe's recommended patterns:
-- **Sling Models** - Proper annotations and injection strategies
-- **HTL Templates** - Secure, performant template language
-- **Touch UI Dialogs** - Granite UI components for authoring
-- **CSS Architecture** - BEM methodology with AEM conventions
-
-## 🎨 Styling System
-
-### Design Tokens
-```css
-:root {
-  /* Color Palette */
-  --primary-blue: #3B82F6;
-  --primary-blue-dark: #2563EB;
-  --white: #FFFFFF;
-  --gray-50: #F8FAFC;
-  
-  /* Typography */
-  --font-family: 'Inter', sans-serif;
-  --font-weight-normal: 400;
-  --font-weight-semibold: 600;
-  
-  /* Spacing */
-  --space-4: 1rem;
-  --space-8: 2rem;
-  
-  /* Shadows */
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+```typescript
+interface Ticket {
+  id: string;           // Unique identifier
+  title: string;        // Ticket title
+  description: string;  // Detailed description
+  severity: 'low' | 'medium' | 'high';
+  createdAt: Date;      // Creation timestamp
+  status: 'open' | 'in-progress' | 'resolved' | 'closed';
 }
 ```
 
-### Responsive Breakpoints
-- **Mobile**: 480px and below
-- **Tablet**: 768px and below
-- **Desktop**: 1024px and above
+## Customization
 
-## 🧪 Browser Support
+### Adding API Integration
 
-| Browser | Version | Status |
-|---------|---------|--------|
-| Chrome | 90+ | ✅ Fully Supported |
-| Firefox | 88+ | ✅ Fully Supported |
-| Safari | 14+ | ✅ Fully Supported |
-| Edge | 90+ | ✅ Fully Supported |
+The localStorage functions in `src/utils/ticketStorage.ts` can be easily replaced with API calls:
 
-## 🚀 Performance
+```typescript
+// Replace localStorage functions with API calls
+export async function getTickets(): Promise<Ticket[]> {
+  const response = await fetch('/api/tickets');
+  return response.json();
+}
 
-### Optimization Features
-- **Lazy Loading** - Images and heavy content load on demand
-- **Code Splitting** - Modular JavaScript architecture
-- **CSS Optimization** - Minimal, purpose-built stylesheets
-- **Caching Strategy** - Optimal cache headers for static assets
-
-### Performance Metrics
-- **First Contentful Paint**: < 1.5s
-- **Largest Contentful Paint**: < 2.5s
-- **Time to Interactive**: < 3.0s
-- **Cumulative Layout Shift**: < 0.1
-
-## 🔧 Development
-
-### Adding New Component Types
-
-1. **Update Templates**
-   ```javascript
-   // In js/templates.js
-   AEMTemplates.componentTypes['new-component'] = {
-     title: 'New Component',
-     description: 'Component description',
-     category: 'Content',
-     icon: '🆕',
-     fields: [
-       { name: 'title', type: 'text', label: 'Title', required: true }
-     ]
-   };
-   ```
-
-2. **Add Generation Logic**
-   ```javascript
-   // Add case in generateHTL, generateSlingModel, etc.
-   case 'new-component':
-     // Component-specific generation logic
-     break;
-   ```
-
-3. **Create Styles**
-   ```javascript
-   // Add styling in generateCSS method
-   ```
-
-### Extending Form Fields
-
-```javascript
-// In js/components.js - createFormField method
-case 'new-field-type':
-  fieldElement = document.createElement('input');
-  fieldElement.type = 'text';
-  // Custom field logic
-  break;
-```
-
-### Custom Styling
-
-```css
-/* Override CSS custom properties */
-:root {
-  --primary-blue: #your-color;
-  --font-family: 'Your-Font', sans-serif;
+export async function createTicket(ticketData: CreateTicketData): Promise<Ticket> {
+  const response = await fetch('/api/tickets', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(ticketData)
+  });
+  return response.json();
 }
 ```
 
-## 🤝 Contributing
+### Styling
 
-We welcome contributions! Please follow these steps:
+The project uses Tailwind CSS with custom components defined in `src/index.css`. Colors and styling can be customized in `tailwind.config.js`.
 
-1. **Fork the repository**
-2. **Create a feature branch** (`git checkout -b feature/amazing-feature`)
-3. **Commit changes** (`git commit -m 'Add amazing feature'`)
-4. **Push to branch** (`git push origin feature/amazing-feature`)
-5. **Open a Pull Request**
+## Contributing
 
-### Development Guidelines
-- Follow existing code style and patterns
-- Add comprehensive comments for new functions
-- Test across different browsers and devices
-- Update documentation for new features
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
 
-## 📄 License
+## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- **Adobe Experience Manager** - For the excellent AEM platform
-- **Adobe Core Components** - For component architecture inspiration
-- **Inter Font** - For the beautiful typography
-- **Netlify** - For seamless deployment and hosting
-
-## 📞 Support
-
-### Getting Help
-- 📖 Check the [documentation](#usage-guide)
-- 🐛 [Report bugs](https://github.com/your-username/aem-component-generator/issues)
-- 💡 [Request features](https://github.com/your-username/aem-component-generator/issues)
-- 💬 [Join discussions](https://github.com/your-username/aem-component-generator/discussions)
-
-### Useful Resources
-- [AEM Developer Documentation](https://experienceleague.adobe.com/docs/experience-manager-65/developing/introduction/the-basics.html)
-- [HTL Specification](https://github.com/adobe/htl-spec)
-- [AEM Core Components](https://github.com/adobe/aem-core-wcm-components)
-- [Sling Models Documentation](https://sling.apache.org/documentation/bundles/models.html)
-
----
-
-<div align="center">
-  <h3>Built with ❤️ for AEM developers</h3>
-  <p>
-    <a href="#-features">Features</a> •
-    <a href="#-quick-start">Quick Start</a> •
-    <a href="#-usage-guide">Usage</a> •
-    <a href="#-development">Development</a>
-  </p>
-</div>
-
-**Happy Component Building! 🚀**
+This project is licensed under the MIT License - see the LICENSE file for details.
