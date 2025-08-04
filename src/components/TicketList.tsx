@@ -89,48 +89,48 @@ export function TicketList({ refreshTrigger }: TicketListProps) {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between mb-4 sm:mb-6">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100">
             Support Tickets
           </h2>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">
+          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mt-1">
             Manage and track all support requests
           </p>
         </div>
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="card p-4">
-          <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{stats.total}</div>
-          <div className="text-sm text-gray-600 dark:text-gray-400">Total Tickets</div>
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        <div className="card p-3 sm:p-4">
+          <div className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100">{stats.total}</div>
+          <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Total Tickets</div>
         </div>
-        <div className="card p-4">
-          <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">{stats.open}</div>
-          <div className="text-sm text-gray-600 dark:text-gray-400">Open</div>
+        <div className="card p-3 sm:p-4">
+          <div className="text-xl sm:text-2xl font-bold text-blue-600 dark:text-blue-400">{stats.open}</div>
+          <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Open</div>
         </div>
-        <div className="card p-4">
-          <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">{stats.inProgress}</div>
-          <div className="text-sm text-gray-600 dark:text-gray-400">In Progress</div>
+        <div className="card p-3 sm:p-4">
+          <div className="text-xl sm:text-2xl font-bold text-orange-600 dark:text-orange-400">{stats.inProgress}</div>
+          <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">In Progress</div>
         </div>
-        <div className="card p-4">
-          <div className="text-2xl font-bold text-green-600 dark:text-green-400">{stats.resolved}</div>
-          <div className="text-sm text-gray-600 dark:text-gray-400">Resolved</div>
+        <div className="card p-3 sm:p-4">
+          <div className="text-xl sm:text-2xl font-bold text-green-600 dark:text-green-400">{stats.resolved}</div>
+          <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">Resolved</div>
         </div>
       </div>
 
       {/* Filters */}
-      <div className="card p-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div>
+      <div className="card p-4 sm:p-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="sm:col-span-2 lg:col-span-1">
             <label htmlFor="search" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Search
             </label>
             <input
               type="text"
               id="search"
-              className="input-field"
+              className="input-field text-base"
               placeholder="Search by title, description, or ID..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -143,7 +143,7 @@ export function TicketList({ refreshTrigger }: TicketListProps) {
             </label>
             <select
               id="severity-filter"
-              className="input-field"
+              className="input-field text-base"
               value={severityFilter}
               onChange={(e) => setSeverityFilter(e.target.value as Severity | 'all')}
             >
@@ -160,7 +160,7 @@ export function TicketList({ refreshTrigger }: TicketListProps) {
             </label>
             <select
               id="status-filter"
-              className="input-field"
+              className="input-field text-base"
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
             >
@@ -209,7 +209,7 @@ export function TicketList({ refreshTrigger }: TicketListProps) {
             <div className="text-sm text-gray-600 dark:text-gray-400">
               Showing {filteredTickets.length} of {tickets.length} tickets
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 lg:gap-6">
               {filteredTickets.map((ticket) => (
                 <TicketCard key={ticket.id} ticket={ticket} />
               ))}

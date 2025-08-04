@@ -34,24 +34,30 @@ export function TicketCard({ ticket }: TicketCardProps) {
   };
 
   return (
-    <div className="card p-6 hover:shadow-lg dark:hover:shadow-soft-dark transition-shadow duration-200">
-      <div className="flex items-start justify-between mb-4">
+    <div className="card p-4 sm:p-6 hover:shadow-lg dark:hover:shadow-soft-dark transition-shadow duration-200">
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-4 space-y-3 sm:space-y-0">
         <div className="flex-1">
-          <div className="flex items-center gap-3 mb-2">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 line-clamp-1">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2">
+            <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100 line-clamp-2 sm:line-clamp-1">
               {ticket.title}
             </h3>
-            <span className={`px-2 py-1 text-xs font-medium rounded-full ${getSeverityColor(ticket.severity)}`}>
+            <span className={`px-2 py-1 text-xs font-medium rounded-full self-start ${getSeverityColor(ticket.severity)}`}>
               {ticket.severity.charAt(0).toUpperCase() + ticket.severity.slice(1)}
             </span>
           </div>
-          <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+          <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-500 dark:text-gray-400">
             <span>#{ticket.id.slice(-8)}</span>
             <span>•</span>
-            <span>{formatDate(ticket.createdAt)}</span>
+            <span className="hidden sm:inline">{formatDate(ticket.createdAt)}</span>
+            <span className="sm:hidden">{new Intl.DateTimeFormat('en-US', {
+              month: 'short',
+              day: 'numeric',
+              hour: '2-digit',
+              minute: '2-digit'
+            }).format(ticket.createdAt)}</span>
           </div>
         </div>
-        <span className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(ticket.status)}`}>
+        <span className={`px-2 py-1 text-xs font-medium rounded-full self-start sm:self-auto ${getStatusColor(ticket.status)}`}>
           {ticket.status.replace('-', ' ').toUpperCase()}
         </span>
       </div>
@@ -63,15 +69,19 @@ export function TicketCard({ ticket }: TicketCardProps) {
       </div>
       
       <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-        <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs text-gray-500 dark:text-gray-400">
           <div className="flex items-center gap-1">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            Created {formatDate(ticket.createdAt)}
+            <span className="hidden sm:inline">Created {formatDate(ticket.createdAt)}</span>
+            <span className="sm:hidden">Created {new Intl.DateTimeFormat('en-US', {
+              month: 'short',
+              day: 'numeric'
+            }).format(ticket.createdAt)}</span>
           </div>
           <div className="flex items-center gap-1">
-            <div className={`w-2 h-2 rounded-full ${
+            <div className={`w-2 h-2 rounded-full flex-shrink-0 ${
               ticket.severity === 'high' ? 'bg-red-500' : 
               ticket.severity === 'medium' ? 'bg-yellow-500' : 'bg-green-500'
             }`}></div>

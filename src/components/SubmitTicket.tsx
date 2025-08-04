@@ -51,17 +51,17 @@ export function SubmitTicket({ onTicketCreated }: SubmitTicketProps) {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <div className="card p-8">
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+      <div className="card p-4 sm:p-6 md:p-8">
+        <div className="mb-6 md:mb-8">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
             Submit Support Ticket
           </h2>
-          <p className="text-gray-600 dark:text-gray-400">
+          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
             Describe your issue and we'll help you resolve it as quickly as possible.
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
           <div>
             <label htmlFor="title" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               Title *
@@ -69,7 +69,7 @@ export function SubmitTicket({ onTicketCreated }: SubmitTicketProps) {
             <input
               type="text"
               id="title"
-              className="input-field"
+              className="input-field text-base"
               placeholder="Brief description of your issue"
               value={formData.title}
               onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
@@ -84,7 +84,7 @@ export function SubmitTicket({ onTicketCreated }: SubmitTicketProps) {
             </label>
             <select
               id="severity"
-              className="input-field"
+              className="input-field text-base"
               value={formData.severity}
               onChange={(e) => setFormData(prev => ({ ...prev, severity: e.target.value as Severity }))}
               disabled={isSubmitting}
@@ -93,7 +93,7 @@ export function SubmitTicket({ onTicketCreated }: SubmitTicketProps) {
               <option value="medium">Medium - Issue affecting productivity</option>
               <option value="high">High - Critical issue blocking work</option>
             </select>
-            <div className="mt-1 text-sm">
+            <div className="mt-2 text-sm">
               Current severity: <span className={getSeverityColor(formData.severity)}>
                 {formData.severity.charAt(0).toUpperCase() + formData.severity.slice(1)}
               </span>
@@ -107,7 +107,7 @@ export function SubmitTicket({ onTicketCreated }: SubmitTicketProps) {
             <textarea
               id="description"
               rows={6}
-              className="input-field resize-none"
+              className="input-field resize-none text-base"
               placeholder="Please provide detailed information about your issue, including steps to reproduce, expected behavior, and any error messages you've encountered."
               value={formData.description}
               onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
@@ -141,7 +141,7 @@ export function SubmitTicket({ onTicketCreated }: SubmitTicketProps) {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
+              className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center min-h-[44px] px-6 py-3 text-base font-medium w-full sm:w-auto"
             >
               {isSubmitting && (
                 <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">

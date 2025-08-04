@@ -3,27 +3,46 @@ import { ThemeToggle } from './ThemeToggle';
 interface SidebarProps {
   activeSection: 'submit' | 'list';
   onSectionChange: (section: 'submit' | 'list') => void;
+  isMobile: boolean;
+  onClose?: () => void;
 }
 
-export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
+export function Sidebar({ activeSection, onSectionChange, isMobile, onClose }: SidebarProps) {
   return (
-    <div className="w-64 bg-gray-50 dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 flex flex-col h-full">
+    <div className={`w-64 bg-gray-50 dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 flex flex-col h-full ${
+      isMobile ? 'shadow-lg' : ''
+    }`}>
       <div className="p-6 border-b border-gray-200 dark:border-gray-700">
         <div className="flex items-center justify-between">
           <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">
             Support Desk
           </h1>
-          <ThemeToggle />
+          <div className="flex items-center space-x-2">
+            {!isMobile && <ThemeToggle />}
+            {isMobile && onClose && (
+              <button
+                onClick={onClose}
+                className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                aria-label="Close menu"
+              >
+                <svg className="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            )}
+          </div>
         </div>
       </div>
       
       <nav className="flex-1 p-4 space-y-2">
-        <div
-          className={`sidebar-item ${activeSection === 'submit' ? 'active' : ''}`}
+        <button
+          className={`sidebar-item w-full text-left ${activeSection === 'submit' ? 'active' : ''} ${
+            isMobile ? 'py-4 text-base' : ''
+          }`}
           onClick={() => onSectionChange('submit')}
         >
           <svg
-            className="w-5 h-5 mr-3"
+            className={`${isMobile ? 'w-6 h-6' : 'w-5 h-5'} mr-3`}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -36,14 +55,16 @@ export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
             />
           </svg>
           Submit Ticket
-        </div>
+        </button>
         
-        <div
-          className={`sidebar-item ${activeSection === 'list' ? 'active' : ''}`}
+        <button
+          className={`sidebar-item w-full text-left ${activeSection === 'list' ? 'active' : ''} ${
+            isMobile ? 'py-4 text-base' : ''
+          }`}
           onClick={() => onSectionChange('list')}
         >
           <svg
-            className="w-5 h-5 mr-3"
+            className={`${isMobile ? 'w-6 h-6' : 'w-5 h-5'} mr-3`}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -56,7 +77,7 @@ export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
             />
           </svg>
           Ticket List
-        </div>
+        </button>
       </nav>
       
       <div className="p-4 border-t border-gray-200 dark:border-gray-700">
